@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excluir Turma</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            justify-content: space-between;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371;
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .bottom-buttons button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bottom-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .bottom-buttons .cancel {
+            background-color: #d9534f;
+        }
+        .bottom-buttons .cancel:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div>
+            <div class="profile">
+                <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+                <h2>Nome do Aluno</h2>
+            </div>
+            <div class="menu-buttons">
+                <button onclick="window.location.href='../curso/index.html'">Cursos</button>
+                <button class="selected" onclick="window.location.href='index.html'">Turmas</button>
+                <button onclick="window.location.href='../disciplina/index.html'">Disciplinas</button>
+                <button onclick="window.location.href='../professor/index.html'">Professores</button>
+                <button onclick="window.location.href='../sala/index.html'">Salas</button>
+                <button onclick="window.location.href='../horario/index.html'">Horários</button>
+            </div>
+        </div>
+        <button class="logout" onclick="window.location.href='../../index.html'">Sair</button>
+    </div>
+    <div class="content">
+        <h1>Excluir Turma</h1>
+        <form id="delete-form">
+            <div class="form-group">
+                <label for="select-class">Selecione a Turma para Excluir</label>
+                <select id="select-class" name="select-class" required>
+                    <!-- Opções de turmas serão populadas aqui -->
+                </select>
+            </div>
+            <div class="bottom-buttons">
+                <button type="button" class="cancel" onclick="window.location.href='index.html'">Cancelar</button>
+                <button type="submit" class="save">Excluir</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const classes = JSON.parse(localStorage.getItem('classes')) || [];
+            const classSelect = document.getElementById('select-class');
+
+            function populateClassSelect() {
+                classSelect.innerHTML = '<option value="">Selecione uma turma</option>';
+                classes.forEach(cls => {
+                    const option = document.createElement('option');
+                    option.value = cls.id;
+                    option.textContent = `${cls.id} - ${cls.name}`;
+                    classSelect.appendChild(option);
+                });
+            }
+
+            document.getElementById('delete-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const classId = classSelect.value;
+
+                if (classId) {
+                    const classIndex = classes.findIndex(cls => cls.id === classId);
+                    if (classIndex !== -1) {
+                        classes.splice(classIndex, 1);
+                        localStorage.setItem('classes', JSON.stringify(classes));
+
+                        alert('Turma excluída com sucesso!');
+                        window.location.href = 'index.html';
+                    }
+                }
+            });
+
+            populateClassSelect();
+        });
+    </script>
+</body>
+</html>

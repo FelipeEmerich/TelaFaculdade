@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Nova Disciplina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57; /* Verde escuro */
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57; /* Verde escuro */
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .bottom-buttons button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bottom-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .bottom-buttons .cancel {
+            background-color: #d9534f; /* Vermelho */
+        }
+        .bottom-buttons .cancel:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="profile">
+        <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+        <h2>Nome do Aluno</h2>
+    </div>
+    <div class="menu-buttons">
+        <button onclick="window.location.href='../curso/index.html'">Cursos</button>
+        <button onclick="window.location.href='../turma/index.html'">Turmas</button>
+        <button onclick="window.location.href='../disciplina/index.html'">Disciplinas</button>
+        <button onclick="window.location.href='../professor/index.html'">Professores</button>
+        <button onclick="window.location.href='index.html'">Salas</button>
+        <button onclick="window.location.href='../horario/index.html'">Horários</button>
+    </div>
+    <button class="logout">Sair</button>
+</div>
+<div class="content">
+    <h1>Criar Nova Disciplina</h1>
+    <form id="disciplina-form">
+        <div class="form-group">
+            <label for="disciplina-name">Nome da Disciplina</label>
+            <input type="text" id="disciplina-name" name="disciplina-name" required>
+        </div>
+        <div class="form-group">
+            <label for="sala">Selecione a Sala</label>
+            <select id="sala" name="sala" required>
+                <option value="">Selecione...</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="horario">Selecione o Horário</label>
+            <select id="horario" name="horario" required>
+                <option value="">Selecione...</option>
+            </select>
+        </div>
+        <div class="bottom-buttons">
+            <button type="button" class="cancel" onclick="window.location.href='index.html'">Cancelar</button>
+            <button type="submit" class="save">Salvar</button>
+        </div>
+    </form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const salas = JSON.parse(localStorage.getItem('rooms')) || [];
+        const horarios = JSON.parse(localStorage.getItem('horarios')) || [];
+        const salaSelect = document.getElementById('sala');
+        const horarioSelect = document.getElementById('horario');
+
+        // Popular select de salas
+        salas.forEach(sala => {
+            const option = document.createElement('option');
+            option.value = sala.id;
+            option.textContent = `${sala.name} - ${sala.number}`;
+            salaSelect.appendChild(option);
+        });
+
+        // Popular select de horários
+        horarios.forEach(horario => {
+            const option = document.createElement('option');
+            option.value = horario.id;
+            option.textContent = `${horario.dia} - ${horario.hora}`;
+            horarioSelect.appendChild(option);
+        });
+
+        document.getElementById('disciplina-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const disciplinaName = document.getElementById('disciplina-name').value;
+            const selectedSalaId = salaSelect.value;
+            const selectedHorarioId = horarioSelect.value;
+
+            if (disciplinaName && selectedSalaId && selectedHorarioId) {
+                // Aqui você pode implementar a lógica para salvar a disciplina
+                alert('Disciplina criada com sucesso!');
+                window.location.href = 'index.html';
+            } else {
+                alert('Por favor, preencha todos os campos.');
+            }
+        });
+    });
+</script>
+</body>
+</html>

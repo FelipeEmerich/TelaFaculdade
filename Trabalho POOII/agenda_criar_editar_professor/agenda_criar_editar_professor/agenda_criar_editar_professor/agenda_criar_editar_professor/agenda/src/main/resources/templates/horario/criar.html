@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Novo Horário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            justify-content: space-between;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371;
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[readonly] {
+            background-color: #e9e9e9;
+        }
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .bottom-buttons button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bottom-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .bottom-buttons .cancel {
+            background-color: #d9534f;
+        }
+        .bottom-buttons .cancel:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div>
+        <div class="profile">
+            <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+            <h2>Nome do Aluno</h2>
+        </div>
+        <div class="menu-buttons">
+            <button onclick="window.location.href='../curso/index.html'">Cursos</button>
+            <button onclick="window.location.href='../turma/index.html'">Turmas</button>
+            <button onclick="window.location.href='../disciplina/index.html'">Disciplinas</button>
+            <button onclick="window.location.href='../professor/index.html'">Professores</button>
+            <button onclick="window.location.href='../sala/index.html'">Salas</button>
+            <button class="selected" onclick="window.location.href='../horario/index.html'">Horários</button>
+        </div>
+    </div>
+    <button class="logout" onclick="window.location.href='../../index.html'">Sair</button>
+</div>
+<div class="content">
+    <h1>Cadastrar Novo Horário</h1>
+    <form id="schedule-form">
+        <div class="form-group">
+            <label for="schedule-id">ID do Horário</label>
+            <input type="text" id="schedule-id" name="schedule-id" readonly>
+        </div>
+        <div class="form-group">
+            <label for="subject">Disciplina</label>
+            <select id="subject" name="subject" required>
+                <!-- Opções de disciplinas serão populadas aqui -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="teacher">Professor</label>
+            <select id="teacher" name="teacher" required>
+                <!-- Opções de professores serão populadas aqui -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="class">Turma</label>
+            <select id="class" name="class" required>
+                <!-- Opções de turmas serão populadas aqui -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="room">Sala</label>
+            <select id="room" name="room" required>
+                <!-- Opções de salas serão populadas aqui -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="day">Dia</label>
+            <select id="day" name="day" required>
+                <option value="Segunda-feira">Segunda-feira</option>
+                <option value="Terça-feira">Terça-feira</option>
+                <option value="Quarta-feira">Quarta-feira</option>
+                <option value="Quinta-feira">Quinta-feira</option>
+                <option value="Sexta-feira">Sexta-feira</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="time">Horário</label>
+            <input type="time" id="time" name="time" required>
+        </div>
+        <div class="bottom-buttons">
+            <button type="button" class="cancel" onclick="window.location.href='index.html'">Cancelar</button>
+            <button type="submit" class="save">Salvar</button>
+        </div>
+    </form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const subjects = JSON.parse(localStorage.getItem('subjects')) || [];
+        const teachers = JSON.parse(localStorage.getItem('professors')) || [];
+        const classes = JSON.parse(localStorage.getItem('classes')) || [];
+        const rooms = JSON.parse(localStorage.getItem('salas')) || [];
+        const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
+        const subjectSelect = document.getElementById('subject');
+        const teacherSelect = document.getElementById('teacher');
+        const classSelect = document.getElementById('class');
+        const roomSelect = document.getElementById('room');
+        const scheduleIdInput = document.getElementById('schedule-id');
+
+        function populateSelect(selectElement, items) {
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = item.name;
+                selectElement.appendChild(option);
+            });
+        }
+
+        function generateScheduleId() {
+            const lastId = schedules.length ? parseInt(schedules[schedules.length - 1].id) : 0;
+            return (lastId + 1).toString().padStart(3, '0');
+        }
+
+        document.getElementById('schedule-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const scheduleId = scheduleIdInput.value;
+            const subject = subjectSelect.value;
+            const teacher = teacherSelect.value;
+            const className = classSelect.value;
+            const room = roomSelect.value;
+            const day = document.getElementById('day').value;
+            const time = document.getElementById('time').value;
+
+            if (subject && teacher && className && room && day && time) {
+                schedules.push({ id: scheduleId, subject, teacher, className, room, day, time });
+                localStorage.setItem('schedules', JSON.stringify(schedules));
+
+                alert('Novo horário cadastrado com sucesso!');
+                window.location.href = 'index.html';
+            }
+        });
+
+        scheduleIdInput.value = generateScheduleId();
+        populateSelect(subjectSelect, subjects);
+        populateSelect(teacherSelect, teachers);
+        populateSelect(classSelect, classes);
+        populateSelect(roomSelect, rooms);
+    });
+</script>
+</body>
+</html>

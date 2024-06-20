@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Cursos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57; /* Verde escuro */
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            justify-content: space-between; /* Ensures logout is at the bottom */
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57; /* Verde escuro */
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[readonly] {
+            background-color: #e9e9e9;
+        }
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .bottom-buttons button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bottom-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .bottom-buttons .cancel {
+            background-color: #d9534f; /* Vermelho */
+        }
+        .bottom-buttons .cancel:hover {
+            background-color: #c9302c;
+        }
+        .course-list {
+            margin-bottom: 20px;
+        }
+        .course-list h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .course-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .course-list li {
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-bottom: 5px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        .course-list li:hover {
+            background-color: #e9e9e9;
+        }
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .action-buttons button {
+            width: 150px;
+            padding: 10px;
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .action-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .bottom-buttons .logout {
+            width: 100%;
+            background-color: #d9534f;
+        }
+        .bottom-buttons .logout:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div>
+            <div class="profile">
+                <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+                <h2>Nome do Aluno</h2>
+            </div>
+            <div class="menu-buttons">
+                <button class="selected" onclick="window.location.href='index.html'">Cursos</button>
+                <button onclick="window.location.href='../turma/index.html'">Turmas</button>
+                <button onclick="window.location.href='../disciplina/index.html'">Disciplinas</button>
+                <button onclick="window.location.href='../professor/index.html'">Professores</button>
+                <button onclick="window.location.href='../sala/index.html'">Salas</button>
+                <button onclick="window.location.href='../horario/index.html'">Horários</button>
+            </div>
+        </div>
+        <button class="logout" onclick="window.location.href='../../index.html'">Sair</button>
+    </div>
+    <div class="content">
+        <h1>Menu Cursos</h1>
+        <div class="course-list">
+            <h2>Cursos Existentes</h2>
+            <ul id="course-list">
+                <li onclick="showCourseDetails('001', 'Engenharia de Software')">001 - Engenharia de Software</li>
+                <li onclick="showCourseDetails('002', 'Sistemas de Informação')">002 - Sistemas de Informação</li>
+            </ul>
+        </div>
+        <div class="action-buttons">
+            <button onclick="window.location.href='../curso/criar.html'">Adicionar Curso</button>
+            <button onclick="window.location.href='../curso/editar.html'">Editar Curso</button>
+
+
+            <button onclick="window.location.href='../curso/excluir.html'">Excluir Curso</button>
+        </div>
+        <div class="bottom-buttons">
+            <button class="logout" onclick="window.location.href='../../index.html'">Sair</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const courses = JSON.parse(localStorage.getItem('courses')) || [];
+            const courseList = document.getElementById('course-list');
+
+            function populateCourseList() {
+                courseList.innerHTML = '';
+                courses.forEach(course => {
+                    const li = document.createElement('li');
+                    li.textContent = `${course.id} - ${course.name}`;
+                    li.addEventListener('click', () => {
+                        showCourseDetails(course.id, course.name);
+                    });
+                    courseList.appendChild(li);
+                });
+            }
+
+            function showCourseDetails(id, name) {
+                alert(`ID: ${id}\nNome: ${name}`);
+            }
+
+            populateCourseList();
+        });
+    </script>
+</body>
+</html>

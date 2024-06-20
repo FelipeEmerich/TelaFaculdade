@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Sala</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371;
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #3CB371;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="profile">
+        <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+        <h2>Nome do Aluno</h2>
+    </div>
+    <div class="menu-buttons">
+        <button onclick="window.location.href='../curso/index.html'">Cursos</button>
+        <button onclick="window.location.href='../turma/index.html'">Turmas</button>
+        <button onclick="window.location.href='../disciplina/index.html'">Disciplinas</button>
+        <button onclick="window.location.href='../professor/index.html'">Professores</button>
+        <button class="selected" onclick="window.location.href='index.html'">Salas</button>
+        <button onclick="window.location.href='../horario/index.html'">Horários</button>
+    </div>
+    <button class="logout">Sair</button>
+</div>
+<div class="content">
+    <h1>Cadastrar Sala</h1>
+    <div class="form-container">
+        <form id="sala-form">
+            <div class="form-group">
+                <label for="nomeSala">Nome da Sala:</label>
+                <input type="text" id="nomeSala" name="nomeSala" required>
+            </div>
+            <div class="form-actions">
+                <button type="submit">Salvar</button>
+                <button type="button" onclick="window.location.href='index.html'">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('sala-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nomeSala = document.getElementById('nomeSala').value;
+
+            const salas = JSON.parse(localStorage.getItem('salas')) || [];
+            const newSala = {
+                id: 'sala_' + (new Date()).getTime(),
+                name: nomeSala
+            };
+
+            salas.push(newSala);
+            localStorage.setItem('salas', JSON.stringify(salas));
+
+            alert('Sala cadastrada com sucesso!');
+            window.location.href = 'index.html';
+        });
+    });
+</script>
+</body>
+</html>

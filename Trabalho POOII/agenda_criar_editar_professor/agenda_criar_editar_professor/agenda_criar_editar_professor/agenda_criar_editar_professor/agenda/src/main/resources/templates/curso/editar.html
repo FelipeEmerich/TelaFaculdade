@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Curso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57; /* Verde escuro */
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57; /* Verde escuro */
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .bottom-buttons button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bottom-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .bottom-buttons .cancel {
+            background-color: #d9534f; /* Vermelho */
+        }
+        .bottom-buttons .cancel:hover {
+            background-color: #c9302c;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const courses = JSON.parse(localStorage.getItem('courses')) || [];
+            const selectCourse = document.getElementById('select-course');
+
+            courses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course.id;
+                option.textContent = `${course.id} - ${course.name}`;
+                selectCourse.appendChild(option);
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const courseId = urlParams.get('id');
+            if (courseId) {
+                selectCourse.value = courseId;
+                const selectedCourse = courses.find(course => course.id === courseId);
+                if (selectedCourse) {
+                    document.getElementById('course-name').value = selectedCourse.name;
+                }
+            }
+        });
+
+        function saveChanges() {
+            const selectedCourseId = document.getElementById('select-course').value;
+            const newName = document.getElementById('course-name').value;
+
+            if (!newName) {
+                alert('Por favor, preencha o nome do curso.');
+                return;
+            }
+            const courses = JSON.parse(localStorage.getItem('courses')) || [];
+            const updatedCourses = courses.map(course => {
+                if (course.id === selectedCourseId) {
+                    return { ...course, name: newName };
+                }
+                return course;
+            });
+            localStorage.setItem('courses', JSON.stringify(updatedCourses));
+
+            alert('Curso atualizado com sucesso!');
+            window.location.href = 'index.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+            <h2>Nome do Aluno</h2>
+        </div>
+        <div class="menu-buttons">
+            <button class="selected" onclick="window.location.href='index.html'">Cursos</button>
+            <button onclick="window.location.href='../turma/index.html'">Turmas</button>
+            <button onclick="window.location.href='../professor/index.html'">Professores</button>
+            <button onclick="window.location.href='../disciplina/index.html'">Disciplinas</button>
+            <button onclick="window.location.href='../sala/index.html'">Salas</button>
+            <button onclick="window.location.href='../horario/index.html'">Horários</button>
+        </div>
+        <button class="logout" onclick="window.location.href='../../index.html'">Sair</button>
+    </div>
+    <div class="content">
+        <h1>Editar Curso</h1>
+        <div class="form-group">
+            <label for="select-course">Selecione o Curso</label>
+            <select id="select-course" name="select-course"></select>
+        </div>
+        <div class="form-group">
+            <label for="course-name">Novo Nome do Curso</label>
+            <input type="text" id="course-name" name="course-name" required>
+        </div>
+        <div class="bottom-buttons">
+            <button type="button" class="cancel" onclick="window.location.href='index.html'">Cancelar</button>
+            <button type="button" class="save" onclick="saveChanges()">Salvar</button>
+        </div>
+    </div>
+</body>
+</html>

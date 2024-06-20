@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horários de Aula - Salas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57; /* Verde escuro */
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57; /* Verde escuro */
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .course-button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        .course-button:hover {
+            background-color: #3CB371;
+        }
+        .course-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        .course-actions button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            width: 48%;
+            transition: background-color 0.3s;
+        }
+        .course-actions button:hover {
+            background-color: #3CB371;
+        }
+        .course-actions .add-course {
+            background-color: #4CAF50; /* Verde adição */
+        }
+        .course-actions .add-course:hover {
+            background-color: #45A049;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="profile">
+        <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+        <h2>Nome do Aluno</h2>
+    </div>
+    <div class="menu-buttons">
+        <button onclick="window.location.href='../curso/index.html'">Cursos</button>
+        <button onclick="window.location.href='../turma/index.html'">Turmas</button>
+        <button onclick="window.location.href='../disciplina/index.html'">Disciplinas</button>
+        <button onclick="window.location.href='../professor/index.html'">Professores</button>
+        <button class="selected" onclick="window.location.href='index.html'">Salas</button>
+        <button onclick="window.location.href='../horario/index.html'">Horários</button>
+    </div>
+    <button class="logout">Sair</button>
+</div>
+<div class="content">
+    <h1>Salas de Aula</h1>
+    <div class="course-actions">
+        <button class="add-course" onclick="window.location.href='criar.html'">Adicionar Nova Sala</button>
+    </div>
+    <div>
+        <button class="course-button" onclick="window.location.href='ListaSala.html?id=1'">Sala 1</button>
+        <button class="course-button" onclick="window.location.href='ListaSala.html?id=2'">Sala 2</button>
+    </div>
+</div>
+</body>
+</html>

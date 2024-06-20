@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Horário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57; /* Verde escuro */
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            justify-content: space-between;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57; /* Verde escuro */
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[readonly] {
+            background-color: #e9e9e9;
+        }
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .bottom-buttons button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bottom-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .bottom-buttons .cancel {
+            background-color: #d9534f; /* Vermelho */
+        }
+        .bottom-buttons .cancel:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div>
+            <div class="profile">
+                <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+                <h2>Nome do Aluno</h2>
+            </div>
+            <div class="menu-buttons">
+                <button onclick="window.location.href='../curso/index.html'">Cursos</button>
+                <button onclick="window.location.href='../turma/index.html'">Turmas</button>
+                <button onclick="window.location.href='../disciplina/index.html'">Disciplinas</button>
+                <button onclick="window.location.href='../professor/index.html'">Professores</button>
+                <button onclick="window.location.href='../sala/index.html'">Salas</button>
+                <button class="selected" onclick="window.location.href='index.html'">Horários</button>
+            </div>
+        </div>
+        <button class="logout" onclick="window.location.href='../../index.html'">Sair</button>
+    </div>
+    <div class="content">
+        <h1>Editar Horário</h1>
+        <form id="schedule-form">
+            <div class="form-group">
+                <label for="select-schedule">Selecione o Horário para Editar</label>
+                <select id="select-schedule" name="select-schedule" required>
+                    <!-- Opções de horários serão populadas aqui -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="schedule-id">ID do Horário</label>
+                <input type="text" id="schedule-id" name="schedule-id" readonly>
+            </div>
+            <div class="form-group">
+                <label for="subject">Disciplina</label>
+                <select id="subject" name="subject" required>
+                    <!-- Opções de disciplinas serão populadas aqui -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="teacher">Professor</label>
+                <select id="teacher" name="teacher" required>
+                    <!-- Opções de professores serão populadas aqui -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="class">Turma</label>
+                <select id="class" name="class" required>
+                    <!-- Opções de turmas serão populadas aqui -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="room">Sala</label>
+                <select id="room" name="room" required>
+                    <!-- Opções de salas serão populadas aqui -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="day">Dia</label>
+                <select id="day" name="day" required>
+                    <option value="Segunda-feira">Segunda-feira</option>
+                    <option value="Terça-feira">Terça-feira</option>
+                    <option value="Quarta-feira">Quarta-feira</option>
+                    <option value="Quinta-feira">Quinta-feira</option>
+                    <option value="Sexta-feira">Sexta-feira</option>
+                    <option value="Sábado">Sábado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="time">Horário</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+            <div class="bottom-buttons">
+                <button type="button" class="cancel" onclick="window.location.href='index.html'">Cancelar</button>
+                <button type="submit" class="save">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
+            const subjects = JSON.parse(localStorage.getItem('subjects')) || [];
+            const teachers = JSON.parse(localStorage.getItem('teachers')) || [];
+            const classes = JSON.parse(localStorage.getItem('classes')) || [];
+            const rooms = JSON.parse(localStorage.getItem('salas')) || [];
+
+            const scheduleSelect = document.getElementById('select-schedule');
+            const scheduleIdInput = document.getElementById('schedule-id');
+            const subjectSelect = document.getElementById('subject');
+            const teacherSelect = document.getElementById('teacher');
+            const classSelect = document.getElementById('class');
+            const roomSelect = document.getElementById('room');
+            const daySelect = document.getElementById('day');
+            const timeInput = document.getElementById('time');
+
+            function populateScheduleSelect() {
+                scheduleSelect.innerHTML = '<option value="">Selecione um horário</option>';
+                schedules.forEach(schedule => {
+                    const option = document.createElement('option');
+                    option.value = schedule.id;
+                    option.textContent = `${schedule.id} - ${schedule.subject} (${schedule.day} - ${schedule.time})`;
+                    scheduleSelect.appendChild(option);
+                });
+            }
+
+            function populateSelect(selectElement, items, itemProperty, valueProperty) {
+                selectElement.innerHTML = ''; // Limpar opções existentes
+                items.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item[valueProperty];
+                    option.textContent = item[itemProperty];
+                    selectElement.appendChild(option);
+                });
+            }
+
+            function populateTeacherSelect() {
+                populateSelect(teacherSelect, teachers, 'name', 'id');
+            }
+
+            scheduleSelect.addEventListener('change', function() {
+                const selectedSchedule = schedules.find(schedule => schedule.id === scheduleSelect.value);
+                if (selectedSchedule) {
+                    scheduleIdInput.value = selectedSchedule.id;
+                    subjectSelect.value = selectedSchedule.subjectId;
+                    teacherSelect.value = selectedSchedule.teacherId;
+                    classSelect.value = selectedSchedule.classId;
+                    roomSelect.value = selectedSchedule.roomId;
+                    daySelect.value = selectedSchedule.day;
+                    timeInput.value = selectedSchedule.time;
+                } else {
+                    scheduleIdInput.value = '';
+                    subjectSelect.value = '';
+                    teacherSelect.value = '';
+                    classSelect.value = '';
+                    roomSelect.value = '';
+                    daySelect.value = '';
+                    timeInput.value = '';
+                }
+            });
+
+            document.getElementById('schedule-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const scheduleId = scheduleIdInput.value;
+                const subjectId = subjectSelect.value;
+                const subject = subjects.find(s => s.id === subjectId).name;
+                const teacherId = teacherSelect.value;
+                const teacher = teachers.find(t => t.id === teacherId).name;
+                const classId = classSelect.value;
+                const className = classes.find(cls => cls.id === classId).name;
+                const roomId = roomSelect.value;
+                const room = rooms.find(r => r.id === roomId).name;
+                const day = daySelect.value;
+                const time = timeInput.value;
+
+                const scheduleIndex = schedules.findIndex(schedule => schedule.id === scheduleId);
+                if (scheduleIndex !== -1) {
+                    schedules[scheduleIndex] = {
+                        id: scheduleId,
+                        subjectId: subjectId,
+                        subject: subject,
+                        teacherId: teacherId,
+                        teacher: teacher,
+                        classId: classId,
+                        className: className,
+                        roomId: roomId,
+                        room: room,
+                        day: day,
+                        time: time
+                    };
+                    localStorage.setItem('schedules', JSON.stringify(schedules));
+
+                    alert('Horário atualizado com sucesso!');
+                    window.location.href = 'index.html';
+                }
+            });
+
+            populateScheduleSelect();
+            populateSelect(subjectSelect, subjects, 'name', 'id');
+            populateTeacherSelect();
+            populateSelect(classSelect, classes, 'name', 'id');
+            populateSelect(roomSelect, rooms, 'name', 'id');
+        });
+    </script>
+</body>
+</html>

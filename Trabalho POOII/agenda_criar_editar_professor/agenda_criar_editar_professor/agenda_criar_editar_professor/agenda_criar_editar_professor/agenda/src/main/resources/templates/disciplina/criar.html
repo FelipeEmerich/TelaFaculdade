@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Nova Disciplina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57; /* Verde escuro */
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            justify-content: space-between;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57; /* Verde escuro */
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[readonly] {
+            background-color: #e9e9e9;
+        }
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .bottom-buttons button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bottom-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .bottom-buttons .cancel {
+            background-color: #d9534f; /* Vermelho */
+        }
+        .bottom-buttons .cancel:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div>
+            <div class="profile">
+                <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+                <h2>Nome do Aluno</h2>
+            </div>
+            <div class="menu-buttons">
+                <button onclick="window.location.href='../curso/index.html'">Cursos</button>
+                <button onclick="window.location.href='../turma/index.html'">Turmas</button>
+                <button class="selected" onclick="window.location.href='index.html'">Disciplinas</button>
+                <button onclick="window.location.href='../professor/index.html'">Professores</button>
+                <button onclick="window.location.href='../sala/index.html'">Salas</button>
+                <button onclick="window.location.href='../horario/index.html'">Horários</button>
+            </div>
+        </div>
+        <button class="logout" onclick="window.location.href='../../index.html'">Sair</button>
+    </div>
+
+    <div class="content">
+        <h1>Cadastrar Nova Disciplina</h1>
+        <form id="subject-form">
+            <div class="form-group">
+                <label for="subject-id">ID da Disciplina</label>
+                <input type="text" id="subject-id" name="subject-id" readonly>
+            </div>
+            <div class="form-group">
+                <label for="subject-name">Nome da Disciplina</label>
+                <input type="text" id="subject-name" name="subject-name" required>
+            </div>
+            <div class="form-group">
+                <label for="class">Turma</label>
+                <select id="class" name="class" required>
+                    <!-- Options will be populated here -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="room">Sala</label>
+                <select id="room" name="room" required>
+                    <!-- Options will be populated here -->
+                </select>
+            </div>
+            <div class="bottom-buttons">
+                <button type="button" class="cancel" onclick="window.location.href='index.html'">Cancelar</button>
+                <button type="submit" class="save">Salvar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const classes = JSON.parse(localStorage.getItem('classes')) || [];
+            const rooms = JSON.parse(localStorage.getItem('salas')) || [];
+
+            const classSelect = document.getElementById('class');
+            const roomSelect = document.getElementById('room');
+            const subjectIdInput = document.getElementById('subject-id');
+
+            function populateClassSelect() {
+                classes.forEach(cls => {
+                    const option = document.createElement('option');
+                    option.value = cls.id;
+                    option.textContent = `${cls.courseName} - ${cls.name}`;
+                    classSelect.appendChild(option);
+                });
+            }
+
+            function populateRoomSelect() {
+                rooms.forEach(room => {
+                    const option = document.createElement('option');
+                    option.value = room.id;
+                    option.textContent = room.name;
+                    roomSelect.appendChild(option);
+                });
+            }
+
+            function generateSubjectId() {
+                const subjects = JSON.parse(localStorage.getItem('subjects')) || [];
+                const lastId = subjects.length ? parseInt(subjects[subjects.length - 1].id) : 0;
+                return (lastId + 1).toString().padStart(3, '0');
+            }
+
+            document.getElementById('subject-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const subjectName = document.getElementById('subject-name').value;
+                const classId = classSelect.value;
+                const roomId = roomSelect.value;
+                const roomName = rooms.find(room => room.id === roomId).name;
+                const subjectId = subjectIdInput.value;
+
+                if (subjectName && classId && roomId) {
+                    const selectedClass = classes.find(cls => cls.id === classId);
+
+                    const subjects = JSON.parse(localStorage.getItem('subjects')) || [];
+                    subjects.push({
+                        id: subjectId,
+                        name: subjectName,
+                        classId: classId,
+                        className: selectedClass.name,
+                        courseId: selectedClass.courseId,
+                        courseName: selectedClass.courseName,
+                        roomId: roomId,
+                        roomName: roomName
+                    });
+                    localStorage.setItem('subjects', JSON.stringify(subjects));
+
+                    alert('Nova disciplina cadastrada com sucesso!');
+                    window.location.href = 'index.html';
+                }
+            });
+
+            subjectIdInput.value = generateSubjectId();
+            populateClassSelect();
+            populateRoomSelect();
+        });
+    </script>
+</body>
+</html>

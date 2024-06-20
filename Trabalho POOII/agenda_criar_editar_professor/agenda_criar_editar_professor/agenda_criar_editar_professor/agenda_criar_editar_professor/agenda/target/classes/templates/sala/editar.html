@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horários de Aula - Editar Sala</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2E8B57; /* Verde escuro */
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .profile h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .menu-buttons {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .menu-buttons button {
+            background-color: #2E8B57; /* Verde escuro */
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px 0;
+            transition: background-color 0.3s;
+        }
+        .menu-buttons button:hover {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .menu-buttons .selected {
+            background-color: #3CB371; /* Verde mais claro */
+        }
+        .logout {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[readonly] {
+            background-color: #e9e9e9;
+        }
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .bottom-buttons button {
+            background-color: #2E8B57;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .bottom-buttons button:hover {
+            background-color: #3CB371;
+        }
+        .bottom-buttons .cancel {
+            background-color: #d9534f; /* Vermelho */
+        }
+        .bottom-buttons .cancel:hover {
+            background-color: #c9302c;
+        }
+        .bottom-buttons .delete {
+            background-color: #f0ad4e; /* Laranja */
+        }
+        .bottom-buttons .delete:hover {
+            background-color: #ec971f;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="profile">
+        <img src="https://via.placeholder.com/50" alt="Foto do Aluno">
+        <h2>Nome do Aluno</h2>
+    </div>
+    <div class="menu-buttons">
+        <button class="selected" onclick="window.location.href='MenuSala.html'">Salas</button>
+        <button onclick="window.location.href='MenuCursos.html'">Cursos</button>
+        <button onclick="window.location.href='MenuTurma.html'">Turmas</button>
+        <button onclick="window.location.href='MenuProfessor.html'">Professores</button>
+        <button onclick="window.location.href='MenuDisciplinas.html'">Disciplinas</button>
+        <button onclick="window.location.href='../horario/index.html'">Horários</button>
+    </div>
+    <button class="logout">Sair</button>
+</div>
+<div class="content">
+    <div>
+        <h1>Editar Sala</h1>
+        <div class="form-group">
+            <label for="sala-id">ID da Sala</label>
+            <input type="text" id="sala-id" value="001" readonly>
+        </div>
+        <div class="form-group">
+            <label for="sala-name">Nome da Sala</label>
+            <input type="text" id="sala-name" value="Sala Nome">
+        </div>
+        <div class="form-group">
+            <label for="sala-number">Número da Sala</label>
+            <input type="text" id="sala-number" value="100">
+        </div>
+    </div>
+    <div class="bottom-buttons">
+        <button class="cancel" onclick="window.location.href='MenuSala.html'">Cancelar</button>
+        <button>Salvar</button>
+        <button class="delete">Excluir</button>
+    </div>
+    <div class="bottom-buttons">
+        <button onclick="window.location.href='MdnuSala.html'">Voltar ao Menu de Salas</button>
+        <button class="logout">
+
+    </div>
+</div>
+</body>
+</html>
